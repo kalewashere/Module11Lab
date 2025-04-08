@@ -20,7 +20,7 @@ public IActionResult OnGet(int duckId)
     }
     Order = new Order { DuckId = duckId }; 
     return Page(); // returning duck page
-}
+} // clsoing onget method
 
         public IActionResult OnPost()
         {
@@ -47,7 +47,7 @@ public IActionResult OnGet(int duckId)
                 {
                     if (reader.Read())
                     {
-                        return new Duck
+                        return new Duck // returns a new duck object with data set into new variables
                         {
                             Id = reader.GetInt32(0),
                             Name = reader.GetString(1),
@@ -61,9 +61,9 @@ public IActionResult OnGet(int duckId)
             return null;
         } // closing GetDuckById
 
-        private int SaveOrder(Order order)
+        private int SaveOrder(Order order) // this method will save the orer when inout
         {
-            using (var connection = new SqliteConnection("Data Source=RubberDucks.db"))
+            using (var connection = new SqliteConnection("Data Source=RubberDucks.db")) // sql connection with parameters set below, wil run everytime an order is submitted
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -76,12 +76,12 @@ public IActionResult OnGet(int duckId)
                 command.Parameters.AddWithValue("@CustomerEmail", order.CustomerEmail);
                 command.Parameters.AddWithValue("@Quantity", order.Quantity);
 
-                return Convert.ToInt32(command.ExecuteScalar());
+                return Convert.ToInt32(command.ExecuteScalar()); // returning data from command, converting to int
             }
         } // closing SaveOrder
     }
 
-    public class Order
+    public class Order // model class for order with getters and setters
     {
         public int Id { get; set; }
         public int DuckId { get; set; }

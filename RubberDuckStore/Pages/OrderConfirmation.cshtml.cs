@@ -9,20 +9,20 @@ namespace RubberDuckStore.Pages
         public Order Order { get; set; }
         public Duck Duck { get; set; }
 
-        public IActionResult OnGet(int orderId)
-        {
-            Order = GetOrderById(orderId);
-            if (Order == null)
+        public IActionResult OnGet(int orderId) // 
+        { 
+            Order = GetOrderById(orderId); // sets order id into order
+            if (Order == null)  // which is used here with a condition check, which, if passes, will return a message from the not found method
             {
                 return NotFound();
             }
-            Duck = GetDuckById(Order.DuckId);
-            return Page();
+            Duck = GetDuckById(Order.DuckId); // if check fails the duck object is set
+            return Page(); // duck page returned
         }
 
-        private Order GetOrderById(int id)
+        private Order GetOrderById(int id)  // getting order from DB via sql and where clause, which has an Id parameter
         {
-            using (var connection = new SqliteConnection("Data Source=RubberDucks.db"))
+            using (var connection = new SqliteConnection("Data Source=RubberDucks.db")) // sql connection that will run when command is given to obtain order
             {
                 connection.Open();
                 var command = connection.CreateCommand();
@@ -46,7 +46,7 @@ namespace RubberDuckStore.Pages
             return null;
         }
 
-        private Duck GetDuckById(int id)
+        private Duck GetDuckById(int id) // once again getting the duck via Id clause in sql connection
         {
             using (var connection = new SqliteConnection("Data Source=RubberDucks.db"))
             {

@@ -57,7 +57,7 @@ namespace RubberDuckStore.Pages
         }
         // Helper method that retrieves a specific duck by its ID from the database
         // Returns all details of the duck
-        private Duck GetDuckById(int id)
+        private Duck GetDuckById(int id) // gets duck by id via sql where statement
         {
             using (var connection = new SqliteConnection("Data Source=RubberDucks.db"))
             {
